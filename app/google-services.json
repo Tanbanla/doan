@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1092342616102",
+    "project_id": "projectend-bd5a2",
+    "storage_bucket": "projectend-bd5a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092342616102:android:ee71cd0c5f03bf718e56e7",
+        "android_client_info": {
+          "package_name": "com.example.doan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqt_XX8cPoaJa0TE6QjIQ1xY1OXCu484I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
