@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import com.example.doan.R;
 import com.example.doan.databinding.ActivityLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
@@ -38,14 +35,11 @@ public class LoginActivity extends BaseActivity {
                 String name = binding.textId.getText().toString();
                 String password = binding.textPass.getText().toString();
                 if(!name.isEmpty() & !password.isEmpty()){
-                    mAuth.createUserWithEmailAndPassword(name,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            }else {
-                                Toast.makeText(LoginActivity.this, "False", Toast.LENGTH_SHORT).show();
-                            }
+                    mAuth.signInWithEmailAndPassword(name,password).addOnCompleteListener(LoginActivity.this, task -> {
+                        if(task.isSuccessful()){
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        }else {
+                            Toast.makeText(LoginActivity.this, "False", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }else {

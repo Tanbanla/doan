@@ -28,7 +28,7 @@ public class MainActivity_Intro extends BaseActivity {
                 if(mAuth.getCurrentUser()!= null){
                     startActivity(new Intent(MainActivity_Intro.this, MainActivity.class));
                 }else {
-                    startActivity(new Intent(MainActivity_Intro.this, LoginActivity.class));
+                    startActivity(new Intent(MainActivity_Intro.this, SignUpActivity.class));
                 }
             }
         });
@@ -36,7 +36,7 @@ public class MainActivity_Intro extends BaseActivity {
         introBinding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity_Intro.this, SignUpActivity.class));
+                startActivity(new Intent(MainActivity_Intro.this, LoginActivity.class));
             }
         });
     }
