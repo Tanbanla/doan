@@ -3,10 +3,23 @@ package com.example.doan.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Debug;
+import android.view.View;
 import android.webkit.WebChromeClient;
+import android.widget.Toast;
 
+import com.example.doan.API.ApiClient;
+import com.example.doan.Object.ThongBao;
+import com.example.doan.Object.ThongBao1Item;
+import com.example.doan.Object.ThongBaoItem;
 import com.example.doan.R;
 import com.example.doan.databinding.ActivityMainBinding;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -16,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initiLocation();
+       CallAPI();
+        binding.imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "OK1", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initiLocation() {
@@ -23,5 +43,31 @@ public class MainActivity extends AppCompatActivity {
             binding.Video.loadData(video, "text/html","utf-8");
             binding.Video.getSettings().setJavaScriptEnabled(true);
             binding.Video.setWebChromeClient(new WebChromeClient());
+    }
+    private  void CallAPI(){
+        Call<List<ThongBaoItem>> call = ApiClient.getInstance().getApi().getThongBao();
+        call.enqueue(new Callback<List<ThongBaoItem>>() {
+            @Override
+            public void onResponse(Call<List<ThongBaoItem>> call, Response<List<ThongBaoItem>> response) {
+                if(response.isSuccessful()){
+                    List<ThongBaoItem> thongBaoItemList = response.body();
+                    binding.name.setText(""+thongBaoItemList.get(0).getContent());
+                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                    binding.imageView3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            binding.name.setText(""+thongBaoItemList.get(0).getContent());
+                            Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ThongBaoItem>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                binding.search.setText(""+t.getMessage());
+            }
+        });
     }
 }
